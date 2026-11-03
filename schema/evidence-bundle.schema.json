@@ -11,7 +11,7 @@
   "additionalProperties": true,
   "properties": {
     "case_id": { "type": "string", "minLength": 1 },
-    "aop": { "type": "string", "pattern": "^[a-z0-9-]+/AP-[A-Z0-9-]+@v[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "aop": { "type": "string", "pattern": "^[a-z0-9-]+/(AP|HR)-[A-Z0-9-]+@v[0-9]+\\.[0-9]+\\.[0-9]+$" },
     "proposed_action": {
       "type": "object",
       "required": ["action", "parameters"],

@@ -21,6 +21,32 @@
     },
     "intent_hypothesis": "The source procedure RB-LINE-001 claims that severe faults are escalated to the shift supervisor and that loopback testing precedes dispatch. Observation tests both claims."
   },
+  "process_alignment": {
+    "process_gap": "No canonical BusinessProcess record exists for network line fault management in the catalog yet. Lodge a process contribution (process, with activity and task decomposition) to dea-catalog-business-processes, then replace this gap with the published processes:process-* reference.",
+    "process_catalog_version": "v1-alpha",
+    "metric_refs": [
+      {
+        "name": "mean-time-to-detect",
+        "metric_ref": "dea:metric-mean-time-to-detect"
+      },
+      {
+        "name": "ai-incident-escalation-compliance",
+        "metric_ref": "dea:metric-ai-incident-escalation-compliance"
+      },
+      {
+        "name": "cell-outage-rate",
+        "metric_ref": "dea:metric-cell-outage-rate"
+      },
+      {
+        "name": "mttr-p50-minutes",
+        "gap": "No canonical dea:metric-* exists for p50 mean time to restore in network fault management. Lodge a metric contribution to dea-catalog-metrics, then bind it here."
+      },
+      {
+        "name": "first-pass-fix-rate",
+        "gap": "No canonical dea:metric-* exists for first-pass fix rate in network fault management. Lodge a metric contribution to dea-catalog-metrics, then bind it here."
+      }
+    ]
+  },
   "context": {
     "elements": [
       { "name": "alarm-correlation-result", "source": "network-monitoring-platform", "access_rule": "read-only, per case" },

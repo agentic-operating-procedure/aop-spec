@@ -155,6 +155,17 @@ def normative_checks(doc, diag):
         if missing:
             diag.add("$", "case record fields missing mandatory members: %s (NM-ASR-1)" % ", ".join(sorted(missing)))
 
+    # NM-INT-4: process alignment carries a reference or a gap, not neither.
+    # NM-INT-5: each metric binding carries a canonical metric reference or a
+    # declared gap, never an invented identifier.
+    alignment = doc.get("process_alignment")
+    if alignment is not None:
+        if not alignment.get("process_ref") and not alignment.get("process_gap"):
+            diag.add("$", "process alignment carries neither a process_ref nor a process_gap (NM-INT-4, CG-PA-5)")
+        for index, binding in enumerate(alignment.get("metric_refs", [])):
+            if not binding.get("metric_ref") and not binding.get("gap"):
+                diag.add("$", "metric binding %d carries neither a metric_ref nor a gap (NM-INT-5)" % index)
+
 
 def main(argv):
     if len(argv) < 2:

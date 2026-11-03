@@ -22,6 +22,10 @@ NM-INT-2: The Intent dimension MUST state the scope boundary of the objective: w
 
 NM-INT-3: Where the AOP was compiled from a source SOP, the Intent dimension MUST carry the intent hypothesis derived from that SOP, so that the claim the observation tested is recoverable.
 
+NM-INT-4: An AOP SHOULD carry a process alignment block associating the procedure with the enterprise process catalog deployed from the OpenDEA Business Process Catalog. The block carries the catalog reference for the process (`processes:process-*`), or an explicit gap declaration where no canonical entry exists, together with the catalog version the reference was resolved against. The association is by reference and never by copy; inventing a process identifier is prohibited. The substrate-side rules are CG-PA-1 to CG-PA-6 in `aop-context-graph`.
+
+NM-INT-5: The process alignment block SHOULD bind each human baseline metric of the Assurance dimension to a canonical performance metric in the OpenDEA metrics catalog (`dea:metric-*`) where one exists. Where no canonical metric exists, the block MUST declare the gap explicitly, and the gap is lodged as a contribution to the metrics catalog through that catalog's own contribution process. An AOP MUST NOT invent a metric identifier.
+
 ## 3. Context
 
 The information and environmental state relevant to execution.
