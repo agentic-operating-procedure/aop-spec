@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/agentic-operating-procedure/aop-spec/schema/evidence-bundle.schema.json",
+  "title": "Approver Evidence Bundle",
+  "description": "Schema for the evidence bundle presented to a human approver (SEC-9). The bundle carries the proposed action, the triggering rule, that rule's observed provenance, the baseline comparison, and the case context.",
+  "type": "object",
+  "required": [
+    "case_id", "aop", "proposed_action", "triggering_rule",
+    "rule_provenance", "context_snapshot", "baseline_comparison", "decision"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "case_id": { "type": "string", "minLength": 1 },
+    "aop": { "type": "string", "pattern": "^[a-z0-9-]+/AP-[A-Z0-9-]+@v[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "proposed_action": {
+      "type": "object",
+      "required": ["action", "parameters"],
+      "additionalProperties": true,
+      "properties": {
+        "action": { "type": "string", "minLength": 1 },
+        "parameters": { "type": "object" }
+      }
+    },
+    "triggering_rule": {
+      "type": "object",
+      "required": ["if", "then", "authority"],
+      "additionalProperties": false,
+      "properties": {
+        "if": { "type": "string" },
+        "then": { "type": "string" },
+        "authority": { "enum": ["autonomous", "approval-required", "prohibited"] }
+      }
+    },
+    "rule_provenance": {
+      "type": "object",
+      "required": ["observed_cases", "path_frequency"],
+      "additionalProperties": false,
+      "properties": {
+        "observed_cases": { "type": "integer", "minimum": 1 },
+        "path_frequency": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "context_snapshot": { "type": "string", "pattern": "^cg://case/.+@[0-9TZ:.-]+$" },
+    "baseline_comparison": {
+      "type": "object",
+      "required": ["baseline"],
+      "additionalProperties": true,
+      "properties": {
+        "baseline": { "type": "object" },
+        "projection": { "type": "object" }
+      }
+    },
+    "decision": { "enum": ["human-approval", "escalation", "rejection"] },
+    "approver": { "type": "string" },
+    "outcome": { "type": "string" }
+  }
+}
