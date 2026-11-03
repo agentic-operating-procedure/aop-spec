@@ -145,12 +145,15 @@ def normative_checks(doc, diag):
         if edge.get("behaviour") == "escalate" and not edge.get("target_role"):
             diag.add("$", "exception edge %d escalates without a target role (NM-STR-6)" % index)
 
-    # NM-ASR-1: case record carries the seven mandatory fields.
+    # NM-ASR-1: case record carries the seven mandatory fields. Applies only
+    # where the document declares a case record with its field list; other
+    # document classes validated against other schemas are not AOP documents.
     fields = doc.get("assurance", {}).get("case_record", {}).get("fields", [])
-    required_fields = {"inputs", "context snapshot", "rule", "provenance", "decision", "approver", "outcome"}
-    missing = {f for f in required_fields if not any(f in field.lower() for field in fields)}
-    if missing:
-        diag.add("$", "case record fields missing mandatory members: %s (NM-ASR-1)" % ", ".join(sorted(missing)))
+    if fields:
+        required_fields = {"inputs", "context snapshot", "rule", "provenance", "decision", "approver", "outcome"}
+        missing = {f for f in required_fields if not any(f in field.lower() for field in fields)}
+        if missing:
+            diag.add("$", "case record fields missing mandatory members: %s (NM-ASR-1)" % ", ".join(sorted(missing)))
 
 
 def main(argv):

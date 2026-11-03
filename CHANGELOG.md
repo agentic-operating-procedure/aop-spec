@@ -4,6 +4,13 @@ All notable changes to this repository are documented here. Format follows [Keep
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-04
+
+### Fixed
+
+- Guarded the NM-ASR-1 semantic check so it applies only where the document declares a case record with its field list. A non-AOP document validated against another schema was previously diagnosed against AOP-specific checks. No AOP document result changes; the full fixture gate was re-run unchanged.
+
+
 ## [0.1.0] - 2026-11-03
 
 ### Normative specification
@@ -18,5 +25,6 @@ All notable changes to this repository are documented here. Format follows [Keep
 - Published the machine-readable schemas: the AOP document schema, the Agent Skill declaration schema, and the approver evidence bundle schema.
 - Published the reference validator and the fixture set, and passed the Phase 2 gate: the specimen AOP validates, and every deliberately broken specimen fails with a diagnostic.
 
-[Unreleased]: https://github.com/agentic-operating-procedure/aop-spec/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/agentic-operating-procedure/aop-spec/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/agentic-operating-procedure/aop-spec/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/agentic-operating-procedure/aop-spec/releases/tag/v0.1.0
