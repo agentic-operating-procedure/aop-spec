@@ -5,10 +5,21 @@
   "description": "Schema for a conformant Agentic Operating Procedure document. Implements the normative model clauses NM-MODEL-1 to NM-MODEL-3, the procedure structure NM-STR-1 to NM-STR-7, and the provenance block NM-PRV-1. Uses a documented subset of JSON Schema draft 2020-12; the reference validator implements exactly this subset.",
   "type": "object",
   "required": [
-    "aop", "version", "lifecycle",
-    "intent", "context", "constraints", "authority",
-    "capabilities", "coordination", "control", "assurance",
-    "structure", "provenance", "governance"
+    "aop",
+    "version",
+    "lifecycle",
+    "intent",
+    "context",
+    "constraints",
+    "authority",
+    "capabilities",
+    "coordination",
+    "control",
+    "assurance",
+    "structure",
+    "provenance",
+    "governance",
+    "governance"
   ],
   "additionalProperties": false,
   "properties": {
@@ -25,38 +36,95 @@
     "lifecycle": {
       "description": "Three separate status dimensions, not one status field (NM-VER-4).",
       "type": "object",
-      "required": ["specification_status", "release_status", "operational_applicability"],
+      "required": [
+        "specification_status",
+        "release_status",
+        "operational_applicability"
+      ],
       "additionalProperties": false,
       "properties": {
-        "specification_status": { "enum": ["draft", "under-review", "under-assessment", "approved", "rejected", "withdrawn"] },
-        "release_status": { "enum": ["not-released", "released", "withdrawn-from-distribution"] },
-        "operational_applicability": { "enum": ["not-effective", "effective", "restricted", "suspended", "superseded", "retired"] }
+        "specification_status": {
+          "enum": [
+            "draft",
+            "under-review",
+            "under-assessment",
+            "approved",
+            "rejected",
+            "withdrawn"
+          ]
+        },
+        "release_status": {
+          "enum": [
+            "not-released",
+            "released",
+            "withdrawn-from-distribution"
+          ]
+        },
+        "operational_applicability": {
+          "enum": [
+            "not-effective",
+            "effective",
+            "restricted",
+            "suspended",
+            "superseded",
+            "retired"
+          ]
+        }
       }
     },
     "intent": {
       "description": "Dimension 1: the operational objective as a verifiable outcome condition (NM-INT-1 to NM-INT-3).",
       "type": "object",
-      "required": ["objective", "outcome_condition", "scope_boundary"],
+      "required": [
+        "objective",
+        "outcome_condition",
+        "scope_boundary"
+      ],
       "additionalProperties": true,
       "properties": {
-        "objective": { "type": "string", "minLength": 1 },
-        "outcome_condition": { "type": "string", "minLength": 1 },
+        "objective": {
+          "type": "string",
+          "minLength": 1
+        },
+        "outcome_condition": {
+          "type": "string",
+          "minLength": 1
+        },
         "scope_boundary": {
           "type": "object",
-          "required": ["in_scope", "out_of_scope"],
+          "required": [
+            "in_scope",
+            "out_of_scope"
+          ],
           "additionalProperties": false,
           "properties": {
-            "in_scope": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
-            "out_of_scope": { "type": "array", "items": { "type": "string" } }
+            "in_scope": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            },
+            "out_of_scope": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
           }
         },
-        "intent_hypothesis": { "type": "string", "description": "The claim derived from the source SOP that observation tested (NM-INT-3)." }
+        "intent_hypothesis": {
+          "type": "string",
+          "description": "The claim derived from the source SOP that observation tested (NM-INT-3)."
+        }
       }
     },
     "process_alignment": {
       "description": "Association with the OpenDEA Business Process Catalog, by reference or declared gap, and the metric bindings for the human baseline (NM-INT-4, NM-INT-5).",
       "type": "object",
-      "required": ["process_catalog_version"],
+      "required": [
+        "process_catalog_version"
+      ],
       "additionalProperties": false,
       "properties": {
         "process_ref": {
@@ -69,17 +137,31 @@
           "minLength": 1,
           "description": "Where no canonical entry exists (CG-PA-5): the gap to lodge as a contribution to dea-catalog-business-processes."
         },
-        "process_catalog_version": { "type": "string", "minLength": 1 },
+        "process_catalog_version": {
+          "type": "string",
+          "minLength": 1
+        },
         "metric_refs": {
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["name"],
+            "required": [
+              "name"
+            ],
             "additionalProperties": false,
             "properties": {
-              "name": { "type": "string", "minLength": 1 },
-              "metric_ref": { "type": "string", "pattern": "^dea:metric-[a-z0-9-]+$" },
-              "gap": { "type": "string", "minLength": 1 }
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "metric_ref": {
+                "type": "string",
+                "pattern": "^dea:metric-[a-z0-9-]+$"
+              },
+              "gap": {
+                "type": "string",
+                "minLength": 1
+              }
             }
           }
         }
@@ -88,7 +170,11 @@
     "context": {
       "description": "Dimension 2: context elements with source, access rule and minimisation (NM-CTX-1 to NM-CTX-4).",
       "type": "object",
-      "required": ["elements", "snapshot_semantics", "minimisation_rule"],
+      "required": [
+        "elements",
+        "snapshot_semantics",
+        "minimisation_rule"
+      ],
       "additionalProperties": true,
       "properties": {
         "elements": {
@@ -96,34 +182,81 @@
           "minItems": 1,
           "items": {
             "type": "object",
-            "required": ["name", "source", "access_rule"],
+            "required": [
+              "name",
+              "source",
+              "access_rule",
+              "trust_class"
+            ],
             "additionalProperties": false,
             "properties": {
-              "name": { "type": "string" },
-              "source": { "type": "string" },
-              "access_rule": { "type": "string" }
+              "name": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string"
+              },
+              "access_rule": {
+                "type": "string"
+              },
+              "trust_class": {
+                "enum": [
+                  "system-attested",
+                  "derived",
+                  "model-asserted",
+                  "untrusted-content"
+                ],
+                "description": "The fact's provenance class for enforcement (NM-CTX-5). Only system-attested and derived facts are visible to the policy decision point (NM-STR-16)."
+              }
             }
           }
         },
-        "snapshot_semantics": { "type": "string", "minLength": 1 },
-        "minimisation_rule": { "type": "string", "minLength": 1 }
+        "snapshot_semantics": {
+          "type": "string",
+          "minLength": 1
+        },
+        "minimisation_rule": {
+          "type": "string",
+          "minLength": 1
+        }
       }
     },
     "constraints": {
       "description": "Dimension 3: permitted set, prohibitions, fail-closed rule (NM-CON-1 to NM-CON-4).",
       "type": "object",
-      "required": ["permitted_actions", "prohibited_actions", "fail_closed"],
+      "required": [
+        "permitted_actions",
+        "prohibited_actions",
+        "fail_closed"
+      ],
       "additionalProperties": true,
       "properties": {
-        "permitted_actions": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
-        "prohibited_actions": { "type": "array", "items": { "type": "string" } },
-        "fail_closed": { "const": true, "description": "The fail-closed rule is mandatory and cannot be switched off (NM-CON-3)." }
+        "permitted_actions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "prohibited_actions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fail_closed": {
+          "const": true,
+          "description": "The fail-closed rule is mandatory and cannot be switched off (NM-CON-3)."
+        }
       }
     },
     "authority": {
       "description": "Dimension 4: decision-rights ladder over the five risk axes and the rule-level authority classes (NM-AUT-1 to NM-AUT-6).",
       "type": "object",
-      "required": ["risk_axes", "decision_rights_ladder"],
+      "required": [
+        "risk_axes",
+        "decision_rights_ladder"
+      ],
       "additionalProperties": true,
       "properties": {
         "default_authority_class": {
@@ -137,11 +270,25 @@
           "maxItems": 5,
           "items": {
             "type": "object",
-            "required": ["axis", "assessment"],
+            "required": [
+              "axis",
+              "assessment"
+            ],
             "additionalProperties": false,
             "properties": {
-              "axis": { "enum": ["risk", "reversibility", "operational-impact", "authority-threshold", "assurance-requirement"] },
-              "assessment": { "type": "string", "minLength": 1 }
+              "axis": {
+                "enum": [
+                  "risk",
+                  "reversibility",
+                  "operational-impact",
+                  "authority-threshold",
+                  "assurance-requirement"
+                ]
+              },
+              "assessment": {
+                "type": "string",
+                "minLength": 1
+              }
             }
           }
         },
@@ -151,20 +298,42 @@
           "minItems": 1,
           "items": {
             "type": "object",
-            "required": ["condition", "minimum_authority_class"],
+            "required": [
+              "condition",
+              "minimum_authority_class"
+            ],
             "additionalProperties": false,
             "properties": {
-              "condition": { "type": "string", "minLength": 1 },
-              "minimum_authority_class": { "$ref": "#/$defs/authorityClass" }
+              "condition": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minimum_authority_class": {
+                "$ref": "#/$defs/authorityClass"
+              }
             }
           }
+        },
+        "minimum_support": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "The smallest observed case count a variant or rule must carry (NM-STR-18)."
+        },
+        "critical_variants": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Action names marking rare-but-critical variants exempt from frequency pruning (NM-STR-19)."
         }
       }
     },
     "capabilities": {
       "description": "Dimension 5: enumerated skills and tools with credential requirements (NM-CAP-1 to NM-CAP-4).",
       "type": "object",
-      "required": ["skills"],
+      "required": [
+        "skills"
+      ],
       "additionalProperties": true,
       "properties": {
         "skills": {
@@ -172,11 +341,20 @@
           "minItems": 1,
           "items": {
             "type": "object",
-            "required": ["id", "credential_class"],
+            "required": [
+              "id",
+              "credential_class"
+            ],
             "additionalProperties": false,
             "properties": {
-              "id": { "type": "string", "pattern": "^[a-z0-9-]+/SK-[A-Z0-9-]+@v[0-9]+\\.[0-9]+\\.[0-9]+$" },
-              "credential_class": { "type": "string", "minLength": 1 }
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9-]+/SK-[A-Z0-9-]+@v[0-9]+\\.[0-9]+\\.[0-9]+$"
+              },
+              "credential_class": {
+                "type": "string",
+                "minLength": 1
+              }
             }
           }
         }
@@ -185,7 +363,10 @@
     "coordination": {
       "description": "Dimension 6: handoffs, escalation routes, external system contracts (NM-CRD-1 to NM-CRD-3).",
       "type": "object",
-      "required": ["handoffs", "escalation_routes"],
+      "required": [
+        "handoffs",
+        "escalation_routes"
+      ],
       "additionalProperties": true,
       "properties": {
         "handoffs": {
@@ -193,15 +374,31 @@
           "minItems": 1,
           "items": {
             "type": "object",
-            "required": ["from", "to", "payload", "acknowledgement"],
+            "required": [
+              "from",
+              "to",
+              "payload",
+              "acknowledgement"
+            ],
             "additionalProperties": false,
             "properties": {
-              "from": { "type": "string" },
-              "to": { "type": "string" },
-              "payload": { "type": "string" },
-              "acknowledgement": { "type": "string" },
+              "from": {
+                "type": "string"
+              },
+              "to": {
+                "type": "string"
+              },
+              "payload": {
+                "type": "string"
+              },
+              "acknowledgement": {
+                "type": "string"
+              },
               "kind": {
-                "enum": ["approval", "informational"],
+                "enum": [
+                  "approval",
+                  "informational"
+                ],
                 "description": "An approval handoff routes a decision to the recipient; an informational handoff only informs. Default is approval."
               }
             }
@@ -212,12 +409,26 @@
           "minItems": 1,
           "items": {
             "type": "object",
-            "required": ["authority_class", "target_role", "evidence_bundle"],
+            "required": [
+              "authority_class",
+              "target_role",
+              "evidence_bundle"
+            ],
             "additionalProperties": false,
             "properties": {
-              "authority_class": { "enum": ["approval-required", "prohibited", "unknown"] },
-              "target_role": { "type": "string" },
-              "evidence_bundle": { "$ref": "#/$defs/evidenceBundleRef" }
+              "authority_class": {
+                "enum": [
+                  "approval-required",
+                  "prohibited",
+                  "unknown"
+                ]
+              },
+              "target_role": {
+                "type": "string"
+              },
+              "evidence_bundle": {
+                "$ref": "#/$defs/evidenceBundleRef"
+              }
             }
           }
         }
@@ -226,32 +437,65 @@
     "control": {
       "description": "Dimension 7: validation obligations, exception binding, intervention, drift obligation (NM-CTL-1 to NM-CTL-4).",
       "type": "object",
-      "required": ["validation_obligations", "intervention", "drift_obligation"],
+      "required": [
+        "validation_obligations",
+        "intervention",
+        "drift_obligation"
+      ],
       "additionalProperties": true,
       "properties": {
-        "validation_obligations": { "type": "array", "minItems": 1, "items": { "type": "string" } },
-        "intervention": { "type": "string", "minLength": 1 },
-        "drift_obligation": { "type": "string", "minLength": 1 }
+        "validation_obligations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "intervention": {
+          "type": "string",
+          "minLength": 1
+        },
+        "drift_obligation": {
+          "type": "string",
+          "minLength": 1
+        }
       }
     },
     "assurance": {
       "description": "Dimension 8: case record, human baseline, replay obligation, no self-modification (NM-ASR-1 to NM-ASR-4).",
       "type": "object",
-      "required": ["case_record", "human_baseline", "replay"],
+      "required": [
+        "case_record",
+        "human_baseline",
+        "replay"
+      ],
       "additionalProperties": true,
       "properties": {
         "case_record": {
           "type": "object",
-          "required": ["append_only", "fields"],
+          "required": [
+            "append_only",
+            "fields"
+          ],
           "additionalProperties": false,
           "properties": {
-            "append_only": { "const": true },
-            "fields": { "type": "array", "minItems": 7, "items": { "type": "string" } }
+            "append_only": {
+              "const": true
+            },
+            "fields": {
+              "type": "array",
+              "minItems": 7,
+              "items": {
+                "type": "string"
+              }
+            }
           }
         },
         "human_baseline": {
           "type": "object",
-          "required": ["metrics"],
+          "required": [
+            "metrics"
+          ],
           "additionalProperties": true,
           "properties": {
             "metrics": {
@@ -259,23 +503,39 @@
               "minItems": 1,
               "items": {
                 "type": "object",
-                "required": ["metric", "observed_value"],
+                "required": [
+                  "metric",
+                  "observed_value"
+                ],
                 "additionalProperties": false,
                 "properties": {
-                  "metric": { "type": "string" },
-                  "observed_value": { "type": ["number", "string"] }
+                  "metric": {
+                    "type": "string"
+                  },
+                  "observed_value": {
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  }
                 }
               }
             }
           }
         },
-        "replay": { "const": true }
+        "replay": {
+          "const": true
+        }
       }
     },
     "structure": {
       "description": "The network-native procedure structure: variants, decision points, exception edges, rework loops (NM-STR-1 to NM-STR-7).",
       "type": "object",
-      "required": ["variants", "exception_edges", "rework_loops"],
+      "required": [
+        "variants",
+        "exception_edges",
+        "rework_loops"
+      ],
       "additionalProperties": false,
       "properties": {
         "variants": {
@@ -283,20 +543,51 @@
           "minItems": 1,
           "items": {
             "type": "object",
-            "required": ["id", "name", "frequency", "trigger", "steps", "decision_rules", "provenance"],
+            "required": [
+              "id",
+              "name",
+              "frequency",
+              "trigger",
+              "steps",
+              "decision_rules",
+              "provenance"
+            ],
             "additionalProperties": false,
             "properties": {
-              "id": { "type": "string", "pattern": "^VAR-[A-Z0-9-]+$" },
-              "name": { "type": "string", "minLength": 1 },
-              "frequency": { "type": "number", "minimum": 0, "maximum": 1 },
-              "trigger": { "type": "string", "minLength": 1 },
-              "steps": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+              "id": {
+                "type": "string",
+                "pattern": "^VAR-[A-Z0-9-]+$"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "frequency": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "trigger": {
+                "type": "string",
+                "minLength": 1
+              },
+              "steps": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                }
+              },
               "decision_rules": {
                 "type": "array",
                 "minItems": 1,
-                "items": { "$ref": "#/$defs/decisionRule" }
+                "items": {
+                  "$ref": "#/$defs/decisionRule"
+                }
               },
-              "provenance": { "$ref": "#/$defs/ruleProvenance" }
+              "provenance": {
+                "$ref": "#/$defs/ruleProvenance"
+              }
             }
           }
         },
@@ -304,13 +595,34 @@
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["condition", "behaviour"],
+            "required": [
+              "condition",
+              "behaviour"
+            ],
             "additionalProperties": true,
             "properties": {
-              "condition": { "type": "string", "minLength": 1 },
-              "behaviour": { "enum": ["validated-path", "recover", "escalate"] },
-              "target_role": { "type": "string" },
-              "severity": { "enum": ["low", "moderate", "high", "critical"] }
+              "condition": {
+                "type": "string",
+                "minLength": 1
+              },
+              "behaviour": {
+                "enum": [
+                  "validated-path",
+                  "recover",
+                  "escalate"
+                ]
+              },
+              "target_role": {
+                "type": "string"
+              },
+              "severity": {
+                "enum": [
+                  "low",
+                  "moderate",
+                  "high",
+                  "critical"
+                ]
+              }
             }
           }
         },
@@ -318,12 +630,27 @@
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["return_condition", "iteration_bound", "bound_exceeded_behaviour"],
+            "required": [
+              "return_condition",
+              "iteration_bound",
+              "bound_exceeded_behaviour"
+            ],
             "additionalProperties": false,
             "properties": {
-              "return_condition": { "type": "string", "minLength": 1 },
-              "iteration_bound": { "type": "integer", "minimum": 1 },
-              "bound_exceeded_behaviour": { "enum": ["escalate", "recover"] }
+              "return_condition": {
+                "type": "string",
+                "minLength": 1
+              },
+              "iteration_bound": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "bound_exceeded_behaviour": {
+                "enum": [
+                  "escalate",
+                  "recover"
+                ]
+              }
             }
           }
         }
@@ -332,61 +659,143 @@
     "provenance": {
       "description": "Provenance block (NM-PRV-1 to NM-PRV-3).",
       "type": "object",
-      "required": ["source", "derived_from"],
+      "required": [
+        "source",
+        "derived_from"
+      ],
       "additionalProperties": true,
       "properties": {
-        "source": { "type": "string", "pattern": "^cg://case/.+@[0-9TZ:.-]+$" },
+        "source": {
+          "type": "string",
+          "pattern": "^cg://case/.+@[0-9TZ:.-]+$"
+        },
         "derived_from": {
           "type": "object",
-          "required": ["observed_cases", "variants", "last_recalibrated"],
+          "required": [
+            "observed_cases",
+            "variants",
+            "last_recalibrated"
+          ],
           "additionalProperties": false,
           "properties": {
-            "observed_cases": { "type": "integer", "minimum": 1 },
-            "variants": { "type": "integer", "minimum": 1 },
-            "last_recalibrated": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}" }
+            "observed_cases": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "variants": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "last_recalibrated": {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}"
+            }
           }
         },
-        "source_sop": { "type": "string", "description": "Identifier and version of the source SOP where one exists (NM-PRV-2)." }
+        "source_sop": {
+          "type": "string",
+          "description": "Identifier and version of the source SOP where one exists (NM-PRV-2)."
+        }
       }
     },
     "governance": {
       "description": "Governance bounds: permitted action audit target (NM-CON-1, SEC-8).",
       "type": "object",
-      "required": ["audit"],
+      "required": [
+        "audit",
+        "accountable_owner"
+      ],
       "additionalProperties": true,
       "properties": {
-        "audit": { "const": "case-record" }
+        "audit": {
+          "const": "case-record"
+        },
+        "accountable_owner": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The role answerable for this AOP's authority decisions; the only role that may authorise resumption after an emergency stop (NM-GOV-1, SEC-15)."
+        },
+        "prepared_by": {
+          "type": "string"
+        },
+        "ratified_by": {
+          "type": "string"
+        }
       }
     }
   },
   "$defs": {
     "authorityClass": {
-      "enum": ["autonomous", "approval-required", "prohibited"]
+      "enum": [
+        "autonomous",
+        "approval-required",
+        "prohibited"
+      ]
     },
     "decisionRule": {
       "type": "object",
-      "required": ["if", "then", "authority"],
+      "required": [
+        "if",
+        "then",
+        "authority"
+      ],
       "additionalProperties": false,
       "properties": {
-        "if": { "type": "string", "minLength": 1 },
-        "then": { "type": "string", "minLength": 1 },
-        "authority": { "$ref": "#/$defs/authorityClass" },
+        "if": {
+          "type": "string",
+          "minLength": 1
+        },
+        "then": {
+          "type": "string",
+          "minLength": 1
+        },
+        "authority": {
+          "$ref": "#/$defs/authorityClass"
+        },
         "applies_to": {
           "type": "array",
           "minItems": 1,
-          "items": { "type": "string", "minLength": 1 },
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
           "description": "Optional action scope: the rule governs only the actions it names."
         },
-        "provenance": { "$ref": "#/$defs/ruleProvenance" }
+        "provenance": {
+          "$ref": "#/$defs/ruleProvenance"
+        },
+        "status": {
+          "enum": [
+            "observed",
+            "reviewed",
+            "ratified"
+          ],
+          "description": "The ratification status (NM-AUT-7). Rules granting authority must be ratified."
+        }
       }
     },
     "ruleProvenance": {
       "type": "object",
-      "required": ["observed_cases", "path_frequency"],
+      "required": [
+        "observed_cases",
+        "path_frequency"
+      ],
       "additionalProperties": false,
       "properties": {
-        "observed_cases": { "type": "integer", "minimum": 1 },
-        "path_frequency": { "type": "number", "minimum": 0, "maximum": 1 }
+        "observed_cases": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "path_frequency": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "stitching_confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
       }
     },
     "evidenceBundleRef": {

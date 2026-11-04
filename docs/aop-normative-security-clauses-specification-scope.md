@@ -34,4 +34,8 @@ SEC-11: The harness is the top-level AOP for its domain. Its boundary conditions
 
 SEC-12: These clauses bind regardless of executor type. They apply equally to a model-driven agent and a deterministic rules-based executor operating under an AOP.
 
+SEC-14: On enforcement unavailability the harness holds: the run pauses, nothing executes, and the hold is recorded and escalated. Degraded enforcement never means proceed. The hold state is distinct from a run outcome: the run is incomplete, not failed.
+
+SEC-15: A named role MAY declare an emergency stop over the domain: every run in the domain halts at the next enforcement point, the stop is recorded in the case record, and resumption requires the accountable owner (NM-GOV-1). An emergency stop is a governed action with its own record, never an operator side-channel.
+
 SEC-13: A conformant implementation MUST satisfy every clause in this document. Conformance is tested by the harness profile owned by `aop-conformance`.

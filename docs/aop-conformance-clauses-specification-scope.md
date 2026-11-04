@@ -56,6 +56,16 @@ CC-19: The document requires an append-only case record with the mandatory field
 
 CC-20: No construct in the document permits execution evidence to modify the producing AOP version (NM-ASR-4).
 
+## 7a. Ratification, support and accountability
+
+CC-21: Every decision rule carrying `autonomous` or `approval-required` carries status `ratified` (NM-AUT-7). A rule grounded in a fact whose trust class is `model-asserted` or `untrusted-content` is nonconformant (NM-STR-16, CC-24).
+
+CC-22: Where a minimum support floor is declared, every variant's provenance meets it or the variant is declared rare-but-critical (NM-STR-18, NM-STR-19).
+
+CC-23: Where the document names preparer and ratifier, they differ (NM-GOV-1).
+
+CC-24: No authority-bearing rule depends on a non-attested fact (NM-STR-16).
+
 ## 8. What conformance does not mean
 
 A conformant document is not a certified one until it passes the conformance profile administered by `aop-conformance`, and conformance does not establish that the AOP works. That claim is Demonstrated-level authority, established by `aop-evaluation` and `aop-examples`, not by this specification.

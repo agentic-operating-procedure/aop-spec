@@ -36,6 +36,8 @@ NM-CTX-2: The Context dimension MUST define the context snapshot semantics: what
 
 NM-CTX-3: The Context dimension MUST state the data minimisation rule: the context available to the agent is scoped to what the case and its authority level require. Context engineering doubles as data minimisation.
 
+NM-CTX-5: Every context element MUST declare a trust class: `system-attested` (produced by a system of record), `derived` (deterministically computed from attested facts), `model-asserted` (produced by the executor or another model), or `untrusted-content` (originating outside the estate's control, such as message content). The trust class is the fact's provenance class for enforcement purposes.
+
 NM-CTX-4: The Context dimension MUST NOT admit capture of personal content classes that the observation posture excludes, such as message body content and keystrokes. The work is modelled, not the person.
 
 ## 4. Constraints
@@ -77,6 +79,8 @@ NM-AUT-5: The Authority dimension MUST state the decision-rights ladder position
 | Operational impact | How many cases, systems and people does the decision touch? |
 | Authority threshold | Above what value, count or class must a human decide? |
 | Assurance requirement | What evidence must exist after execution to establish correctness? |
+
+NM-AUT-7: A decision rule carries a status: `observed` (mined, unreviewed), `reviewed` (human-reviewed against the corpus), or `ratified` (ratified by the owner in the governance manifest). Only ratified rules MAY carry the authority classes `autonomous` or `approval-required`. Rules classified `prohibited` need no ratification. Ratification is a human act recorded in the manifest; a recompile cannot ratify itself.
 
 NM-AUT-6: The higher the position of a decision on any risk axis, the higher the minimum authority class it may carry. An AOP MUST NOT classify a decision as `autonomous` where its risk axis values demand `approval-required`. The mapping from axis values to the minimum class is declared in the AOP and validated by the conformance clauses.
 
@@ -125,6 +129,10 @@ NM-ASR-2: The Assurance dimension MUST state the human baseline against which ag
 NM-ASR-3: The Assurance dimension MUST state the replay obligation: every decision in the case record is replayable from the recorded inputs alone.
 
 NM-ASR-4: The Assurance dimension MUST NOT permit execution evidence to modify the AOP version that produced it. Recalibration is a new version with its own provenance and its own approval.
+
+## 9a. Accountability
+
+NM-GOV-1: Every AOP document MUST name its accountable owner in the governance block. The accountable owner is the role answerable for the AOP's authority decisions, and the only role that may authorise resumption after an emergency stop (SEC-15). Where the document also names who prepared and who ratified it, the ratifier MUST NOT be the preparer (CC-23).
 
 ## 10. What the normative model does not do
 

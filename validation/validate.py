@@ -155,6 +155,48 @@ def normative_checks(doc, diag):
         if missing:
             diag.add("$", "case record fields missing mandatory members: %s (NM-ASR-1)" % ", ".join(sorted(missing)))
 
+    # The remaining checks are AOP-document-specific; other document classes
+    # validated against other schemas are not AOP documents.
+    if "aop" not in doc:
+        return
+
+    # NM-CTX-5 / NM-STR-16 / CC-24: authority-bearing rules must be grounded
+    # in attested or derived facts only.
+    untrusted = set()
+    for el in doc.get("context", {}).get("elements", []):
+        if el.get("trust_class") in ("model-asserted", "untrusted-content"):
+            untrusted.add(el.get("name", "").lower())
+    if untrusted:
+        for v in doc.get("structure", {}).get("variants", []):
+            trigger = (v.get("trigger") or "").lower()
+            if any(k in trigger for k in untrusted):
+                diag.add("$", "variant %s trigger depends on a non-attested fact (NM-STR-16, CC-24)" % v.get("id"))
+            for rule in v.get("decision_rules", []):
+                cond = (rule.get("if") or "").lower()
+                if any(k in cond for k in untrusted) and rule.get("authority") in ("autonomous", "approval-required"):
+                    diag.add("$", "rule %r grounds authority in a non-attested fact (NM-STR-16, CC-24)" % rule.get("if"))
+
+    # NM-AUT-7 / CC-21: only ratified rules grant authority.
+    for v in doc.get("structure", {}).get("variants", []):
+        for rule in v.get("decision_rules", []):
+            if rule.get("authority") in ("autonomous", "approval-required") and rule.get("status") != "ratified":
+                diag.add("$", "rule %r grants authority without ratified status (NM-AUT-7, CC-21)" % rule.get("if"))
+
+    # NM-STR-18 / CC-22: support floor.
+    floor = doc.get("authority", {}).get("minimum_support")
+    if floor is not None:
+        for v in doc.get("structure", {}).get("variants", []):
+            cases = (v.get("provenance") or {}).get("observed_cases", 0)
+            if cases < floor:
+                diag.add("$", "variant %s observed in %s cases, below the declared support floor %s (NM-STR-18, CC-22)" % (v.get("id"), cases, floor))
+
+    # NM-GOV-1 / CC-23: accountability and duty separation.
+    gov = doc.get("governance", {})
+    if not gov.get("accountable_owner"):
+        diag.add("$", "governance block does not name an accountable owner (NM-GOV-1)")
+    if gov.get("prepared_by") and gov.get("ratified_by") and gov["prepared_by"] == gov["ratified_by"]:
+        diag.add("$", "ratifier and preparer are the same (CC-23)")
+
     # NM-INT-4: process alignment carries a reference or a gap, not neither.
     # NM-INT-5: each metric binding carries a canonical metric reference or a
     # declared gap, never an invented identifier.

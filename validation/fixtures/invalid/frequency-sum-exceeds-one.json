@@ -21,27 +21,57 @@
     },
     "intent_hypothesis": "The source procedure RB-LINE-001 claims that severe faults are escalated to the shift supervisor and that loopback testing precedes dispatch. Observation tests both claims."
   },
+  "process_alignment": {
+    "process_gap": "No canonical BusinessProcess record exists for network line fault management in the catalog yet. Lodge a process contribution (process, with activity and task decomposition) to dea-catalog-business-processes, then replace this gap with the published processes:process-* reference.",
+    "process_catalog_version": "v1-alpha",
+    "metric_refs": [
+      {
+        "name": "mean-time-to-detect",
+        "metric_ref": "dea:metric-mean-time-to-detect"
+      },
+      {
+        "name": "ai-incident-escalation-compliance",
+        "metric_ref": "dea:metric-ai-incident-escalation-compliance"
+      },
+      {
+        "name": "cell-outage-rate",
+        "metric_ref": "dea:metric-cell-outage-rate"
+      },
+      {
+        "name": "mttr-p50-minutes",
+        "gap": "No canonical dea:metric-* exists for p50 mean time to restore in network fault management. Lodge a metric contribution to dea-catalog-metrics, then bind it here."
+      },
+      {
+        "name": "first-pass-fix-rate",
+        "gap": "No canonical dea:metric-* exists for first-pass fix rate in network fault management. Lodge a metric contribution to dea-catalog-metrics, then bind it here."
+      }
+    ]
+  },
   "context": {
     "elements": [
       {
         "name": "alarm-correlation-result",
         "source": "network-monitoring-platform",
-        "access_rule": "read-only, per case"
+        "access_rule": "read-only, per case",
+        "trust_class": "system-attested"
       },
       {
         "name": "mttr-estimate",
         "source": "derived from fault history for the affected segment",
-        "access_rule": "computed at match time"
+        "access_rule": "computed at match time",
+        "trust_class": "derived"
       },
       {
         "name": "customer-tier",
         "source": "customer-master",
-        "access_rule": "read-only, tier field only"
+        "access_rule": "read-only, tier field only",
+        "trust_class": "system-attested"
       },
       {
         "name": "loopback-test-result",
         "source": "line-test-system",
-        "access_rule": "read-write, test actions only"
+        "access_rule": "read-write, test actions only",
+        "trust_class": "system-attested"
       }
     ],
     "snapshot_semantics": "The case context is snapshotted at variant match time and referenced by a cg://case identifier; the snapshot is immutable for the duration of the run.",
@@ -93,7 +123,8 @@
         "condition": "The action dispatches external resources or the repair estimate exceeds 120 minutes",
         "minimum_authority_class": "approval-required"
       }
-    ]
+    ],
+    "minimum_support": 1000
   },
   "capabilities": {
     "skills": [
@@ -121,13 +152,15 @@
         "from": "agent",
         "to": "shift-supervisor",
         "payload": "evidence bundle with proposed dispatch, triggering rule, provenance and baseline comparison",
-        "acknowledgement": "approve or reject with note, recorded in the case record"
+        "acknowledgement": "approve or reject with note, recorded in the case record",
+        "kind": "approval"
       },
       {
         "from": "agent",
         "to": "planning-system",
         "payload": "dispatch notification with case reference",
-        "acknowledgement": "system acknowledgement recorded in the case record"
+        "acknowledgement": "system acknowledgement recorded in the case record",
+        "kind": "informational"
       }
     ],
     "escalation_routes": [
@@ -199,7 +232,8 @@
             "provenance": {
               "observed_cases": 12417,
               "path_frequency": 0.62
-            }
+            },
+            "status": "ratified"
           },
           {
             "if": "customer_tier == priority and outage == true",
@@ -208,7 +242,8 @@
             "provenance": {
               "observed_cases": 12417,
               "path_frequency": 0.62
-            }
+            },
+            "status": "ratified"
           },
           {
             "if": "mttr_estimate <= 120 and customer_tier != priority",
@@ -217,7 +252,8 @@
             "provenance": {
               "observed_cases": 12417,
               "path_frequency": 0.62
-            }
+            },
+            "status": "ratified"
           }
         ],
         "provenance": {
@@ -244,7 +280,8 @@
             "provenance": {
               "observed_cases": 12417,
               "path_frequency": 0.11
-            }
+            },
+            "status": "ratified"
           }
         ],
         "provenance": {
@@ -279,6 +316,9 @@
     "source_sop": "fault-management/RB-LINE-001@v12"
   },
   "governance": {
-    "audit": "case-record"
+    "audit": "case-record",
+    "accountable_owner": "Emmanuel A. Otchere",
+    "prepared_by": "aop-programme-stewards",
+    "ratified_by": "Emmanuel A. Otchere"
   }
 }
