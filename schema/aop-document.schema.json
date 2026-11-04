@@ -199,7 +199,11 @@
               "from": { "type": "string" },
               "to": { "type": "string" },
               "payload": { "type": "string" },
-              "acknowledgement": { "type": "string" }
+              "acknowledgement": { "type": "string" },
+              "kind": {
+                "enum": ["approval", "informational"],
+                "description": "An approval handoff routes a decision to the recipient; an informational handoff only informs. Default is approval."
+              }
             }
           }
         },

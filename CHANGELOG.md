@@ -2,7 +2,12 @@
 
 All notable changes to this repository are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versioning is semantic: the major version changes when the meaning of a dimension, the authority model, or the permitted-set semantics change, the minor version when substantive normative content is added, and the patch version for corrections that do not change meaning.
 
-## [Unreleased]
+## [0.2.2] - 2026-11-05
+
+### Added
+
+- Coordination handoffs may carry a kind: approval or informational. An approval handoff routes a decision to the recipient; an informational handoff only informs. The default is approval. Found by the 5G exemplar shadow run, whose comparator was counting shift-log notifications as approver rulings.
+
 
 ## [0.2.1] - 2026-11-04
 
@@ -43,7 +48,8 @@ All notable changes to this repository are documented here. Format follows [Keep
 - Published the machine-readable schemas: the AOP document schema, the Agent Skill declaration schema, and the approver evidence bundle schema.
 - Published the reference validator and the fixture set, and passed the Phase 2 gate: the specimen AOP validates, and every deliberately broken specimen fails with a diagnostic.
 
-[Unreleased]: https://github.com/agentic-operating-procedure/aop-spec/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/agentic-operating-procedure/aop-spec/compare/v0.2.2...HEAD
+[0.2.2]: https://github.com/agentic-operating-procedure/aop-spec/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/agentic-operating-procedure/aop-spec/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/agentic-operating-procedure/aop-spec/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/agentic-operating-procedure/aop-spec/compare/v0.1.0...v0.1.1
