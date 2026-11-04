@@ -80,6 +80,10 @@ NM-AUT-5: The Authority dimension MUST state the decision-rights ladder position
 | Authority threshold | Above what value, count or class must a human decide? |
 | Assurance requirement | What evidence must exist after execution to establish correctness? |
 
+NM-AUT-8: Every action in the permitted set carries a reversibility class: `reversible` (undoable at run time by the same authority), `compensable` (undoable only through a declared compensation path), or `irreversible` (no undo). An `irreversible` action MUST carry the authority class `approval-required` or a stricter restriction; it MUST NOT be `autonomous`. A `compensable` action MUST declare its compensation path. Reversibility classes are declared in the Authority dimension and enforced at run time.
+
+NM-AUT-9: Delegated authority attenuates: a run, agent or sub-agent acting under delegated authority holds no more authority than the delegating AOP grants, and each delegation link in a chain can only narrow it. The Coordination dimension declares delegation links where they exist.
+
 NM-AUT-7: A decision rule carries a status: `observed` (mined, unreviewed), `reviewed` (human-reviewed against the corpus), or `ratified` (ratified by the owner in the governance manifest). Only ratified rules MAY carry the authority classes `autonomous` or `approval-required`. Rules classified `prohibited` need no ratification. Ratification is a human act recorded in the manifest; a recompile cannot ratify itself.
 
 NM-AUT-6: The higher the position of a decision on any risk axis, the higher the minimum authority class it may carry. An AOP MUST NOT classify a decision as `autonomous` where its risk axis values demand `approval-required`. The mapping from axis values to the minimum class is declared in the AOP and validated by the conformance clauses.
@@ -104,6 +108,8 @@ NM-CRD-1: The Coordination dimension MUST state, for every handoff, who hands of
 
 NM-CRD-2: The Coordination dimension MUST define the escalation route for each authority class: the target role, the evidence bundle contents, and the expected decision. The evidence bundle contents are fixed by the schema.
 
+NM-CRD-4: The Coordination dimension MAY declare aggregate limits per action class: a maximum count per case, a rate limit, or a blast-radius cap. Where declared, they are enforced at the guardrail beside the authority check (RA-15 in the run and action semantics); exceeding a limit escalates, it never silently proceeds. Where an estate declares none, the conformance record states it.
+
 NM-CRD-3: The Coordination dimension MUST state the interaction contract with external systems: which systems, which operations, and which failure modes route back into the exception edges.
 
 ## 8. Control
@@ -116,6 +122,8 @@ NM-CTL-2: The Control dimension MUST bind every exception edge declared in the p
 
 NM-CTL-3: The Control dimension MUST state the intervention semantics: how a run is paused, superseded or terminated, and by whom.
 
+NM-CTL-5: Every side-effecting action MUST carry the action contract of the run and action semantics: a retry class (idempotent, reconciling, manual), partial-success behaviour, and the concurrency safeguard for any shared resource it touches (RA-8 to RA-13).
+
 NM-CTL-4: The Control dimension MUST state the drift obligation: which observed changes in the work trigger reassessment of the AOP, and how the AOP is recalibrated. Execution feeds observation; the loop closes.
 
 ## 9. Assurance
@@ -127,6 +135,8 @@ NM-ASR-1: The Assurance dimension MUST require an append-only, tamper-evident ca
 NM-ASR-2: The Assurance dimension MUST state the human baseline against which agent performance is compared: the observed human values for the domain metrics, such as cycle time and first-pass resolution.
 
 NM-ASR-3: The Assurance dimension MUST state the replay obligation: every decision in the case record is replayable from the recorded inputs alone.
+
+NM-ASR-5: The case record MUST support the replay levels of the evidence and replay semantics: record verification (R1) always, decision-trace reconstruction (R2) from the record alone, and controlled re-execution (R3) only with its own authorization. Reconstruction never authorises re-execution.
 
 NM-ASR-4: The Assurance dimension MUST NOT permit execution evidence to modify the AOP version that produced it. Recalibration is a new version with its own provenance and its own approval.
 

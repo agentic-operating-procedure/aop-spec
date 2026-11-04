@@ -329,6 +329,39 @@
             "type": "string"
           },
           "description": "Action names marking rare-but-critical variants exempt from frequency pruning (NM-STR-19)."
+        },
+        "reversibility_classes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "action",
+              "class"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "type": "string",
+                "minLength": 1
+              },
+              "class": {
+                "enum": [
+                  "reversible",
+                  "compensable",
+                  "irreversible"
+                ]
+              },
+              "compensation_path": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "description": "Per-action reversibility classes (NM-AUT-8). Irreversible actions must not be autonomous; compensable actions declare their compensation path."
+        },
+        "delegation_attenuation": {
+          "const": true,
+          "description": "Declared where the AOP delegates authority; attenuation always narrows (NM-AUT-9)."
         }
       }
     },
@@ -435,6 +468,35 @@
               }
             }
           }
+        },
+        "aggregate_limits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "action_class"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "action_class": {
+                "type": "string",
+                "minLength": 1
+              },
+              "max_per_case": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "rate_limit_per_hour": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "blast_radius_cap": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "description": "Aggregate budgets per action class (NM-CRD-4), enforced beside the authority check."
         }
       }
     },
@@ -529,6 +591,14 @@
         },
         "replay": {
           "const": true
+        },
+        "replay_level": {
+          "enum": [
+            "R1",
+            "R2",
+            "R3"
+          ],
+          "description": "The highest replay level the record claims (NM-ASR-5, RP-5)."
         }
       }
     },

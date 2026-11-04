@@ -128,7 +128,26 @@
         "minimum_authority_class": "approval-required"
       }
     ],
-    "minimum_support": 1000
+    "minimum_support": 1000,
+    "reversibility_classes": [
+      {
+        "action": "correlate-alarms",
+        "class": "reversible"
+      },
+      {
+        "action": "loopback-test",
+        "class": "reversible"
+      },
+      {
+        "action": "dispatch-field-crew",
+        "class": "compensable",
+        "compensation_path": "recall the crew and revert the dispatch ticket; cost is the truck roll"
+      },
+      {
+        "action": "notify-planning",
+        "class": "reversible"
+      }
+    ]
   },
   "capabilities": {
     "skills": [
@@ -178,6 +197,13 @@
         "target_role": "on-call-engineer",
         "evidence_bundle": "full trace bundle with case context snapshot"
       }
+    ],
+    "aggregate_limits": [
+      {
+        "action_class": "dispatch-write",
+        "max_per_case": 1,
+        "blast_radius_cap": "one crew per case"
+      }
     ]
   },
   "control": {
@@ -213,7 +239,8 @@
         }
       ]
     },
-    "replay": true
+    "replay": true,
+    "replay_level": "R2"
   },
   "structure": {
     "variants": [

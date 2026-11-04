@@ -199,6 +199,26 @@ def normative_checks(doc, diag):
     if gov.get("prepared_by") and gov.get("ratified_by") and gov["prepared_by"] == gov["ratified_by"]:
         diag.add("$", "ratifier and preparer are the same (CC-23)")
 
+    # NM-AUT-8 / CC-25: reversibility classes.
+    rev = {r.get("action"): r for r in doc.get("authority", {}).get("reversibility_classes", [])}
+    default_class = doc.get("authority", {}).get("default_authority_class", "prohibited")
+    for action, rc in rev.items():
+        if rc.get("class") == "compensable" and not rc.get("compensation_path"):
+            diag.add("$", "compensable action %r does not declare its compensation path (NM-AUT-8)" % action)
+        if rc.get("class") == "irreversible":
+            # An irreversible action must never be executable autonomously:
+            # neither by an autonomous rule scoped to it nor by falling
+            # through to an autonomous default class.
+            covered = False
+            for v in doc.get("structure", {}).get("variants", []):
+                for rule in v.get("decision_rules", []):
+                    if action in (rule.get("applies_to") or []):
+                        covered = True
+                        if rule.get("authority") == "autonomous":
+                            diag.add("$", "irreversible action %r carries an autonomous rule (NM-AUT-8, CC-25)" % action)
+            if not covered and default_class == "autonomous":
+                diag.add("$", "irreversible action %r falls through to the autonomous default class (NM-AUT-8, CC-25)" % action)
+
     # NM-INT-4: process alignment carries a reference or a gap, not neither.
     # NM-INT-5: each metric binding carries a canonical metric reference or a
     # declared gap, never an invented identifier.

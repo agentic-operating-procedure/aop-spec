@@ -66,6 +66,14 @@ CC-23: Where the document names preparer and ratifier, they differ (NM-GOV-1).
 
 CC-24: No authority-bearing rule depends on a non-attested fact (NM-STR-16).
 
+## 7b. Run semantics, budgets and reversibility
+
+CC-25: No `irreversible` action carries the authority class `autonomous`, and every `compensable` action declares its compensation path (NM-AUT-8).
+
+CC-26: Where aggregate limits are declared, the guardrail enforces them beside the authority check; the enforcement is exercised by fixture (NM-CRD-4).
+
+CC-27: The case record supports R1 and R2 without trusting the producer; any R3 claim names its own authorization (NM-ASR-5, RP-2).
+
 ## 8. What conformance does not mean
 
 A conformant document is not a certified one until it passes the conformance profile administered by `aop-conformance`, and conformance does not establish that the AOP works. That claim is Demonstrated-level authority, established by `aop-evaluation` and `aop-examples`, not by this specification.

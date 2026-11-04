@@ -7,7 +7,7 @@
 | Authority | The normative model: dimensions, structure, identifiers, schema, contracts, conformance clauses |
 | Tier | Specification |
 | Landing wave | 2 |
-| Version | 0.3.0 |
+| Version | 0.4.0 |
 | Status | Stable |
 | Licence | MIT |
 
@@ -44,6 +44,8 @@ The machine-readable schema is JSON Schema (draft 2020-12). A JSON Schema subset
 | [The Agent Skill contract](./docs/aop-agent-skill-contract-specification-scope.md) | Normative annex: what a skill must declare |
 | [Normative security clauses](./docs/aop-normative-security-clauses-specification-scope.md) | Out-of-context authority enforcement, credentials, fail-closed behaviour |
 | [Conformance clauses](./docs/aop-conformance-clauses-specification-scope.md) | What a conforming AOP document must satisfy |
+| [Run and action semantics](./docs/aop-run-and-action-semantics-specification-scope.md) | The run state machine and the side-effecting action contract |
+| [Evidence and replay semantics](./docs/aop-evidence-and-replay-semantics-specification-scope.md) | The replay levels and their provenance floors |
 | [Metamodel mapping](./docs/aop-metamodel-mapping-specification-scope.md) | How the staged metamodel maps onto the normative model, and the open reconciliation points |
 
 ## Validation
