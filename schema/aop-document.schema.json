@@ -207,6 +207,10 @@
                   "untrusted-content"
                 ],
                 "description": "The fact's provenance class for enforcement (NM-CTX-5). Only system-attested and derived facts are visible to the policy decision point (NM-STR-16)."
+              },
+              "key": {
+                "type": "string",
+                "description": "The runtime identifier the element binds to in conditions and snapshots; defaults to the element name."
               }
             }
           }

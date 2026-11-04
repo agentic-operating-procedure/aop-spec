@@ -53,25 +53,29 @@
         "name": "alarm-correlation-result",
         "source": "network-monitoring-platform",
         "access_rule": "read-only, per case",
-        "trust_class": "system-attested"
+        "trust_class": "system-attested",
+        "key": "segment_isolated"
       },
       {
         "name": "mttr-estimate",
         "source": "derived from fault history for the affected segment",
         "access_rule": "computed at match time",
-        "trust_class": "derived"
+        "trust_class": "derived",
+        "key": "mttr_estimate"
       },
       {
         "name": "customer-tier",
         "source": "customer-master",
         "access_rule": "read-only, tier field only",
-        "trust_class": "system-attested"
+        "trust_class": "system-attested",
+        "key": "customer_tier"
       },
       {
         "name": "loopback-test-result",
         "source": "line-test-system",
         "access_rule": "read-write, test actions only",
-        "trust_class": "system-attested"
+        "trust_class": "system-attested",
+        "key": "loopback_failures"
       }
     ],
     "snapshot_semantics": "The case context is snapshotted at variant match time and referenced by a cg://case identifier; the snapshot is immutable for the duration of the run.",

@@ -165,7 +165,7 @@ def normative_checks(doc, diag):
     untrusted = set()
     for el in doc.get("context", {}).get("elements", []):
         if el.get("trust_class") in ("model-asserted", "untrusted-content"):
-            name = el.get("name", "").lower()
+            name = (el.get("key") or el.get("name") or "").lower()
             untrusted.add(name)
             untrusted.add(name.replace("-", "_"))  # conditions use identifier form
     if untrusted:
