@@ -251,6 +251,67 @@
         "fail_closed": {
           "const": true,
           "description": "The fail-closed rule is mandatory and cannot be switched off (NM-CON-3)."
+        },
+        "action_schemas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "action",
+              "required_fields"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "type": "string",
+                "minLength": 1
+              },
+              "required_fields": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "type"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "enum": [
+                        "string",
+                        "number",
+                        "integer",
+                        "boolean"
+                      ]
+                    },
+                    "minimum": {
+                      "type": "number"
+                    },
+                    "maximum": {
+                      "type": "number"
+                    },
+                    "allowed_values": {
+                      "type": "array"
+                    },
+                    "unit": {
+                      "type": "string"
+                    },
+                    "target_scope": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "prohibited_values": {
+                "type": "array"
+              }
+            }
+          },
+          "description": "Typed parameter schemas per action (RA-20); the enforcement point validates the canonical payload against them (RA-21)."
         }
       }
     },
@@ -599,6 +660,26 @@
             "R3"
           ],
           "description": "The highest replay level the record claims (NM-ASR-5, RP-5)."
+        },
+        "oversight": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "sla_seconds": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "fallback_role": {
+              "type": "string",
+              "minLength": 1
+            },
+            "canary_rate": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "description": "Declared oversight SLA and canary rate (RA-16, RA-19)."
         }
       }
     },

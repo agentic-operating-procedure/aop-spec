@@ -82,6 +82,8 @@ NM-AUT-5: The Authority dimension MUST state the decision-rights ladder position
 
 NM-AUT-8: Every action in the permitted set carries a reversibility class: `reversible` (undoable at run time by the same authority), `compensable` (undoable only through a declared compensation path), or `irreversible` (no undo). An `irreversible` action MUST carry the authority class `approval-required` or a stricter restriction; it MUST NOT be `autonomous`. A `compensable` action MUST declare its compensation path. Reversibility classes are declared in the Authority dimension and enforced at run time.
 
+NM-AUT-10: Ratification requires a human-reviewed corpus: rules derived from agent-originated cases, or from corpora whose origin mix is not declared, cannot be ratified. A recompile cannot ratify itself; ratification is a human act on a corpus whose provenance the ratifier has reviewed (NM-AUT-7, NM-CTL-6).
+
 NM-AUT-9: Delegated authority attenuates: a run, agent or sub-agent acting under delegated authority holds no more authority than the delegating AOP grants, and each delegation link in a chain can only narrow it. The Coordination dimension declares delegation links where they exist.
 
 NM-AUT-7: A decision rule carries a status: `observed` (mined, unreviewed), `reviewed` (human-reviewed against the corpus), or `ratified` (ratified by the owner in the governance manifest). Only ratified rules MAY carry the authority classes `autonomous` or `approval-required`. Rules classified `prohibited` need no ratification. Ratification is a human act recorded in the manifest; a recompile cannot ratify itself.
@@ -121,6 +123,8 @@ NM-CTL-1: The Control dimension MUST state the run-time validation obligations: 
 NM-CTL-2: The Control dimension MUST bind every exception edge declared in the procedure structure to a handling behaviour: a validated path, a recovery strategy, or an escalation.
 
 NM-CTL-3: The Control dimension MUST state the intervention semantics: how a run is paused, superseded or terminated, and by whom.
+
+NM-CTL-6: Every case carries its origin: `human`, `agent`, or `mixed`. Origin feeds the loop-hygiene obligations: agent-originated cases are excluded from baseline mining by default, a protected human-baseline reservoir is maintained for drift detection, and the origin mix of the corpus is reported with every evaluation claim.
 
 NM-CTL-5: Every side-effecting action MUST carry the action contract of the run and action semantics: a retry class (idempotent, reconciling, manual), partial-success behaviour, and the concurrency safeguard for any shared resource it touches (RA-8 to RA-13).
 

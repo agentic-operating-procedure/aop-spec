@@ -219,6 +219,12 @@ def normative_checks(doc, diag):
             if not covered and default_class == "autonomous":
                 diag.add("$", "irreversible action %r falls through to the autonomous default class (NM-AUT-8, CC-25)" % action)
 
+    # RA-20 / CC-29: parameter schemas declare bounds or allowed values.
+    for asch in doc.get("constraints", {}).get("action_schemas", []):
+        for field in asch.get("required_fields", []):
+            if not any(k in field for k in ("minimum", "maximum", "allowed_values", "target_scope")):
+                diag.add("$", "parameter field %r of action %r declares neither bounds nor allowed values (RA-20, CC-29)" % (field.get("name"), asch.get("action")))
+
     # NM-INT-4: process alignment carries a reference or a gap, not neither.
     # NM-INT-5: each metric binding carries a canonical metric reference or a
     # declared gap, never an invented identifier.

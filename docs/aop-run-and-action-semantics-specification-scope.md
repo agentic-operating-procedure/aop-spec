@@ -36,6 +36,26 @@ RA-12: An action that can partially succeed declares so. Partial success routes 
 
 RA-13: A compensable action declares its compensation path. Compensation executions are governed actions: they carry their own authority decision, their own record entries, and their own provenance. Where rollback is impossible, the AOP states the residual handling (accept, escalate, or human decision), and the failure to compensate is recorded.
 
+## 4a. The approval object
+
+RA-15: An approval is an object, not an event: it binds the approver's decision to the action digest (RA-5), the context snapshot reference, the triggering rule, the bound AOP version, the target, and an expiry. An approval that has expired, been revoked, or whose bound digest no longer matches the action presented at execution time is invalid; the action re-enters authorisation. There is no approval without a digest.
+
+RA-16: The approver interface carries four outcomes: approve, reject, request changes, defer. Non-response is none of them: it never approves, and it triggers the declared escalation SLA behaviour (routing to a fallback role with the bundle, recorded). An implementation MUST NOT translate silence into approval.
+
+RA-17: Approver eligibility is declared per authority class: who may approve, that the approver is not the requester and not the author of the triggering rule, and how delegation of the approval right works. Approval rights attenuate like any delegated authority (NM-AUT-9).
+
+RA-18: The approval is re-checked at credential issuance and at execution time against its expiry, its revocation state and its digest binding.
+
+RA-19: Oversight quality is measured, not assumed: the harness emits the oversight metrics (approval rate, time-to-approve, override rate), runs injected test escalations (canary bundles whose correct ruling is rejection) and raises a failing-approver alert when an approver approves canaries or rules faster than the declared floor.
+
+## 4b. Parameter-level constraints
+
+RA-20: Every side-effecting action MAY declare a typed parameter schema: required and optional fields with types, bounds, allowed values, units, target scope, prohibited values, and explicit defaults. Defaults are declared, never implicitly supplied by the executor, an adapter, or the downstream tool without appearing in the authorised payload.
+
+RA-21: The enforcement point validates the canonical payload against the declared schema immediately before execution, after all adapter transformations. The authority decision and the approval are bound to the payload digest of the validated canonical form (RA-6).
+
+RA-22: Unknown fields, ambiguous units, type coercions, out-of-range values and invalid targets fail closed or escalate per the risk profile. Where an action declares no parameter schema, the conformance record states it; absence is a declared gap, not an unexamined freedom.
+
 ## 5. Degraded modes
 
 RA-14: The failure of a runtime component MUST NOT widen authority (SEC-7). The permitted degraded behaviours are enumerated: hold (SEC-14), continue with read-only diagnostics only, or terminate. Any other degraded behaviour is nonconformant.

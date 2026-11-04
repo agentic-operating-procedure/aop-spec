@@ -49,6 +49,10 @@ NM-VER-4: Lifecycle status is carried on three separate dimensions, and MUST NOT
 
 NM-VER-5: Approval, release and operational authorisation are distinct events. An approved AOP version is not automatically released; a released version is not automatically effective in an operational scope. Operational authorisation is granted per scope and can be restricted, suspended, reinstated, superseded or retired independently of approval.
 
+## 2a. Revocation, rollback and compatibility
+
+NM-VER-6: Suspension and revocation operate per scope and never mutate historical records (extending NM-VER-5). The registry resolves the revocation state of a ref, and a run MUST consult it before binding: a revoked version holds at the enforcement point, and an action already in flight follows its declared active-run behaviour per action class (stop, continue under pinned prior authorisation, or safe hold). Rollback selects a prior verified version with a recorded reason; it does not implicitly restore withdrawn credentials or obsolete policy. Compatibility rules for schema evolution and dependency resolution are declared by the registry profile; a historical case remains interpretable after a schema change through the version binding in its record.
+
 ## 3. Provenance and lineage
 
 NM-PRV-1: A compiled AOP MUST carry a provenance block containing at minimum:

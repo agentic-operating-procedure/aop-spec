@@ -48,7 +48,8 @@ All notable changes to this repository are documented here. Format follows [Keep
 - Published the machine-readable schemas: the AOP document schema, the Agent Skill declaration schema, and the approver evidence bundle schema.
 - Published the reference validator and the fixture set, and passed the Phase 2 gate: the specimen AOP validates, and every deliberately broken specimen fails with a diagnostic.
 
-[Unreleased]: https://github.com/agentic-operating-procedure/aop-spec/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/agentic-operating-procedure/aop-spec/compare/v0.5.0...HEAD
+[v0.5.0]: https://github.com/agentic-operating-procedure/aop-spec/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/agentic-operating-procedure/aop-spec/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/agentic-operating-procedure/aop-spec/compare/v0.2.2...v0.3.0
 [0.2.2]: https://github.com/agentic-operating-procedure/aop-spec/compare/v0.2.1...v0.2.2

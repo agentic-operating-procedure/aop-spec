@@ -8,17 +8,18 @@ The ratified normative model (the eight dimensions, the network-native structure
 
 The staged metamodel is the semantic model underneath: a register of 103 entities (AOP-E01 to AOP-E103) across nine stages, each stage owning one semantic area and declaring entities, relationships, invariants, design decisions and conformance levels L0 to L4.
 
-| Stage | Area | Entity range |
+| Stage | Area | Entity range (per the documents' own registers) |
 |---|---|---|
-| 01 | Foundation | E01 to E08 |
-| 02 | Core conceptual | E09 to E20 |
-| 03 | Specification aspects (AS-01 to AS-16) | E21 to E32 |
-| 04 | Decision and autonomy | E33 to E44 |
-| 05 | Operational logic | E45 to E52 |
-| 06 | Capability, agent, resource | E53 to E60 |
+| 01 to 02 | Foundation and core conceptual | E01 to E14 |
+| 03 | Specification aspects (AS-01 to AS-16) | E26 to E40 reserved; unpinned in the transcribed sources |
+| 04 | Decision and autonomy | E15 to E25 |
+| 05 | Operational logic | within E26 to E40; unpinned in the transcribed sources |
+| 06 | Capability, agent, resource | E41 to E60 |
 | 07 | Execution, coordination and runtime semantics | E61 to E75 |
 | 08 | Exception, recovery and resilience semantics | E76 to E86 |
 | 09 | Governance, assurance and lifecycle semantics | E87 to E103 |
+
+An earlier version of this table assumed different range boundaries; the documents' own registers supersede that assumption. The authoritative entity register with names and definitions is the metamodel entity register document.
 
 ## 2. Alignment: where the metamodel and the normative model agree
 
@@ -64,17 +65,17 @@ The staged metamodel is the semantic model underneath: a register of 103 entitie
 
 The mapping is informative. It shows the eight dimensions are a coarser but complete decomposition of the same surface: every aspect lands on exactly one primary dimension, and the conformance clauses test the aspects through the dimensions.
 
-## 5. Open reconciliation points
+## 5. Reconciliation points and their dispositions
 
-These are surfaced for the programme owner. Each is a candidate change request; none is decided here.
+The dispositions below were settled by the programme owner through CR-009-9, CR-015 and CR-010 (2026-11-04 and 2026-11-05). This section records the final state; the reasoning for each is in the linked artefacts.
 
-1. **Hierarchy and metamodel levels.** The ratified six-level conceptual hierarchy (discipline, AOP, skill, harness, agent, agentic operations) does not appear in the metamodel documents, which use a four-level scope (metamodel, AOP specifications, operationalisation, runtime). The two are complementary views, but the mapping between the six levels and the four levels should be stated once, normatively, to prevent drift.
-2. **Dimension count in source documents.** The executive summary lists six dimensions; the framing paper and the introduction list eight. The ratified eight is normative here; the source inconsistency should be closed by a note in `aop-foundations` or an erratum in the source documents.
+1. **Hierarchy and metamodel levels. RESOLVED (CR-010, 2026-11-05).** The six-level conceptual hierarchy and the four-level metamodel scope are complementary views with one normative mapping: the metamodel frames the six levels (its Level 1 the metamodel itself, its Level 4 the runtime the six levels operationalise through). The conceptual hierarchy document and the glossary carry the mapping vocabulary; this section records the disposition.
+2. **Dimension count in source documents. RESOLVED (CR-010, 2026-11-05).** The ratified eight is normative; the six-dimension source wording is marked superseded by the source errata document in `aop-foundations`.
 3. **Harness-AOP relationship.** The framing paper states the harness is the top-level AOP for its domain; the introduction says an AOP is not a harness. The ratified position (SEC-11) adopts the top-level-AOP statement. The metamodel's Stage 01 decision that the Agent Harness is not part of the AOP is consistent with this and should be cited.
 4. **Compiled versus authored provenance.** The framing paper requires compilation from observation; the introduction permits authoring through the six-stage procedural engineering process without observation. The normative model adopts compiled provenance for authority-bearing rules (NM-PRV-3) while permitting authored intent hypotheses (NM-INT-3). Whether an entirely authored AOP can conform, and under which profile, is open.
-5. **Runtime vocabulary adoption.** The metamodel's runtime entities (E61 to E75) are richer than the runtime sequence in NM-STR-13. Adopting the entity names into the schema and the harness profile is proposed for the Wave 4 repos.
+5. **Runtime vocabulary adoption. RESOLVED IN PART (2026-11-05).** The run state machine and action contract (RA-1 to RA-14) adopt the runtime semantics normatively; the run outcome dispositions and the recovery model were already absorbed. The full E61 to E75 entity naming remains available through the register for provenance citations rather than duplicated into the schema.
 6. **Conformance levels.** RESOLVED 2026-11-05: the estate keeps binary suites and expresses graduation as named tiers over cumulative suite supersets (Validated, Enforced, Adversarially Tested, Assured). The metamodel's per-stage L0 to L4 cross-map informatively to those tiers; the mapping is stated in the certification process document. Graduated conformance semantics are not adopted.
-7. **Entity register publication.** The 103-entity register currently exists only in the owner's source documents. Publishing it in this repository or in `aop-context-graph`, with stable identifiers, is proposed so that provenance claims can cite it.
+7. **Entity register publication. RESOLVED (CR-010, 2026-11-05).** Published as the metamodel entity register document in this repository, with the transcription caveat recorded: E26 to E40 are unpinned pending the Stage 03 and 05 sources.
 
 ## 6. Why this mapping exists
 

@@ -74,6 +74,14 @@ CC-26: Where aggregate limits are declared, the guardrail enforces them beside t
 
 CC-27: The case record supports R1 and R2 without trusting the producer; any R3 claim names its own authorization (NM-ASR-5, RP-2).
 
+## 7c. Oversight, parameters and lifecycle
+
+CC-28: Approvals bind to an action digest with an expiry; non-response is never approval; the oversight metrics are emitted and the canary check is live (RA-15 to RA-19).
+
+CC-29: Where an action declares a parameter schema, the enforcement point validates the canonical payload after transformations, and tampering between proposal and execution is caught by fixture (RA-20 to RA-22).
+
+CC-30: A run consults the revocation state of its bound version before executing, and a revoked version holds (NM-VER-6).
+
 ## 8. What conformance does not mean
 
 A conformant document is not a certified one until it passes the conformance profile administered by `aop-conformance`, and conformance does not establish that the AOP works. That claim is Demonstrated-level authority, established by `aop-evaluation` and `aop-examples`, not by this specification.
