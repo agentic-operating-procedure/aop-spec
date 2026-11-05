@@ -877,6 +877,31 @@
           "type": "string"
         }
       }
+    },
+    "build_attestation": {
+      "type": "object",
+      "required": [
+        "compiler",
+        "inputs"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "compiler": {
+          "type": "string",
+          "minLength": 1
+        },
+        "builder": {
+          "type": "string"
+        },
+        "inputs": {
+          "type": "object",
+          "description": "Digests of the source inputs: SOP, observed corpus, governance manifest."
+        },
+        "note": {
+          "type": "string"
+        }
+      },
+      "description": "NM-VER-7: the build attestation binding the compiled artefact to its inputs, builder and toolchain. Required for the operationally authorised state (CC-31)."
     }
   },
   "$defs": {

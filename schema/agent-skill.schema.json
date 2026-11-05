@@ -4,22 +4,51 @@
   "title": "Agent Skill Declaration",
   "description": "Schema for a conformant Agent Skill declaration per the normative contract annex (SK-1 to SK-2).",
   "type": "object",
-  "required": ["id", "name", "purpose", "inputs", "outputs", "requires", "must_not", "reporting", "test"],
+  "required": [
+    "id",
+    "name",
+    "purpose",
+    "inputs",
+    "outputs",
+    "requires",
+    "must_not",
+    "reporting",
+    "test"
+  ],
   "additionalProperties": false,
   "properties": {
-    "id": { "type": "string", "pattern": "^[a-z0-9-]+/SK-[A-Z0-9-]+@v[0-9]+\\.[0-9]+\\.[0-9]+$" },
-    "name": { "type": "string", "minLength": 1 },
-    "purpose": { "type": "string", "minLength": 1 },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+/SK-[A-Z0-9-]+@v[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1
+    },
     "inputs": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["name", "type", "required"],
+        "required": [
+          "name",
+          "type",
+          "required"
+        ],
         "additionalProperties": false,
         "properties": {
-          "name": { "type": "string" },
-          "type": { "type": "string" },
-          "required": { "type": "boolean" }
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "required": {
+            "type": "boolean"
+          }
         }
       }
     },
@@ -28,11 +57,18 @@
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["name", "type"],
+        "required": [
+          "name",
+          "type"
+        ],
         "additionalProperties": false,
         "properties": {
-          "name": { "type": "string" },
-          "type": { "type": "string" }
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
         }
       }
     },
@@ -40,16 +76,67 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["class", "description"],
+        "required": [
+          "class",
+          "description"
+        ],
         "additionalProperties": false,
         "properties": {
-          "class": { "enum": ["credential", "access", "context"] },
-          "description": { "type": "string" }
+          "class": {
+            "enum": [
+              "credential",
+              "access",
+              "context"
+            ]
+          },
+          "description": {
+            "type": "string"
+          }
         }
       }
     },
-    "must_not": { "type": "array", "items": { "type": "string" } },
-    "reporting": { "type": "string", "minLength": 1 },
-    "test": { "type": "string", "minLength": 1, "description": "Reference to the independent test for this skill (SK-5)." }
+    "must_not": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reporting": {
+      "type": "string",
+      "minLength": 1
+    },
+    "test": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Reference to the independent test for this skill (SK-5)."
+    },
+    "maintainer": {
+      "type": "string",
+      "minLength": 1,
+      "description": "SK-12: the maintainer or source of the skill."
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "version"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "behaviour_affecting": {
+            "type": "boolean"
+          }
+        }
+      },
+      "description": "SK-12: behaviour-affecting dependencies; an update is a new version."
+    }
   }
 }

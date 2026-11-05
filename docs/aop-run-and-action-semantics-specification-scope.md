@@ -56,6 +56,10 @@ RA-21: The enforcement point validates the canonical payload against the declare
 
 RA-22: Unknown fields, ambiguous units, type coercions, out-of-range values and invalid targets fail closed or escalate per the risk profile. Where an action declares no parameter schema, the conformance record states it; absence is a declared gap, not an unexamined freedom.
 
+## 4c. In-flight migration
+
+RA-23: Moving an in-flight case to a different AOP version or harness creates a linked new run that references the original record; the original record is never rewritten, and decisions or approvals taken under the prior version do not silently carry over. Migration is an incident-response or governance action with its own record.
+
 ## 5. Degraded modes
 
 RA-14: The failure of a runtime component MUST NOT widen authority (SEC-7). The permitted degraded behaviours are enumerated: hold (SEC-14), continue with read-only diagnostics only, or terminate. Any other degraded behaviour is nonconformant.

@@ -140,6 +140,8 @@ NM-ASR-2: The Assurance dimension MUST state the human baseline against which ag
 
 NM-ASR-3: The Assurance dimension MUST state the replay obligation: every decision in the case record is replayable from the recorded inputs alone.
 
+NM-ASR-7: The evidence model separates integrity and accountability metadata (which never erases) from sensitive payloads (which may). Erasure is executed by tombstone or cryptographic erasure: the append-only chain and the record of the erasure itself survive, the erased content becomes unrecoverable under the declared key model, and the record states which replay claims survive and which are withdrawn (RP-5). Retention schedules and jurisdictional timelines are deployment profiles.
+
 NM-ASR-5: The case record MUST support the replay levels of the evidence and replay semantics: record verification (R1) always, decision-trace reconstruction (R2) from the record alone, and controlled re-execution (R3) only with its own authorization. Reconstruction never authorises re-execution.
 
 NM-ASR-4: The Assurance dimension MUST NOT permit execution evidence to modify the AOP version that produced it. Recalibration is a new version with its own provenance and its own approval.

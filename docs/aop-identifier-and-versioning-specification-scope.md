@@ -53,6 +53,14 @@ NM-VER-5: Approval, release and operational authorisation are distinct events. A
 
 NM-VER-6: Suspension and revocation operate per scope and never mutate historical records (extending NM-VER-5). The registry resolves the revocation state of a ref, and a run MUST consult it before binding: a revoked version holds at the enforcement point, and an action already in flight follows its declared active-run behaviour per action class (stop, continue under pinned prior authorisation, or safe hold). Rollback selects a prior verified version with a recorded reason; it does not implicitly restore withdrawn credentials or obsolete policy. Compatibility rules for schema evolution and dependency resolution are declared by the registry profile; a historical case remains interpretable after a schema change through the version binding in its record.
 
+## 2b. Supply-chain attestation
+
+NM-VER-7: A published artefact reaches the operationally authorised state only with an attestation binding it to its source inputs (the SOP reference, the observed-corpus digest, the governance manifest digest), the builder identity, the toolchain versions, the review or ratification record, and the content digest. An unsigned or invalidly attested artefact cannot be operationally authorised; the registry refuses it. The signing scheme and trust roots are deployment obligations (ARC-TB2); the reference implementation records digest attestations, which make substitution detectable without asserting a signature infrastructure.
+
+## 2c. Revalidation after component changes
+
+NM-VER-8: Runs bind more than the AOP version (NM-STR-11): the record carries a component matrix of every behaviour-affecting component, at minimum the AOP digest, the harness version, the policy bundle digest, the workload identity, and the declared model, prompt, tool and dependency versions where the deployment uses them. Changes are classified by impact into named gates (document conformance, harness security conformance, shadow evaluation, human approval, full re-promotion); a material component change cannot inherit a prior evaluation claim without evidence that the evaluation envelope still applies. Rollback, canary comparison and emergency pinning to a known-good component set are declared per deployment profile.
+
 ## 3. Provenance and lineage
 
 NM-PRV-1: A compiled AOP MUST carry a provenance block containing at minimum:

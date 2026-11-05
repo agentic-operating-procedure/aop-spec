@@ -38,4 +38,8 @@ SEC-14: On enforcement unavailability the harness holds: the run pauses, nothing
 
 SEC-15: A named role MAY declare an emergency stop over the domain: every run in the domain halts at the next enforcement point, the stop is recorded in the case record, and resumption requires the accountable owner (NM-GOV-1). An emergency stop is a governed action with its own record, never an operator side-channel.
 
+SEC-16: Every run executes under an authenticated workload identity bound to the AOP version, the case scope, and the action class. Credentials are unusable across workloads, runs, tenants or action classes; a credential presented by a different workload than the one it was issued to is refused. The model context never holds workload credentials (SEC-4).
+
+SEC-17: Conformant execution profiles declare their egress: permitted destinations and protocols per profile, deny-by-default for everything undeclared, preserving only the connections the profile needs (inference, approved tools, identity, audit). Host tools, shells, plugins, browser and network tools, and child processes inherit or narrow the same boundary; they cannot widen it. Bypass paths are blocked and tested by the conformance fixtures of the deployment profile; blanket network denial is not required, non-bypassability is.
+
 SEC-13: A conformant implementation MUST satisfy every clause in this document. Conformance is tested by the harness profile owned by `aop-conformance`.

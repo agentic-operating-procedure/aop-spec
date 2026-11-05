@@ -82,6 +82,16 @@ CC-29: Where an action declares a parameter schema, the enforcement point valida
 
 CC-30: A run consults the revocation state of its bound version before executing, and a revoked version holds (NM-VER-6).
 
+## 7d. Supply chain, identity and erasure
+
+CC-31: An operationally authorised artefact carries a valid attestation binding it to its inputs, builder and toolchain (NM-VER-7); the registry refuses unsigned-effective publications.
+
+CC-32: The case record carries the component matrix of behaviour-affecting components (NM-VER-8); a promotion record names the matrix it covers.
+
+CC-33: Runs execute under workload identity with credentials unusable across workloads, runs, tenants and action classes (SEC-16); egress is deny-by-default per declared profile with bypass paths tested (SEC-17).
+
+CC-34: Erasure preserves the chain and the erasure record while making erased content unrecoverable, and the record states which replay claims survive (NM-ASR-7).
+
 ## 8. What conformance does not mean
 
 A conformant document is not a certified one until it passes the conformance profile administered by `aop-conformance`, and conformance does not establish that the AOP works. That claim is Demonstrated-level authority, established by `aop-evaluation` and `aop-examples`, not by this specification.

@@ -36,6 +36,10 @@ SK-6: A skill MUST be composable: invoking it MUST NOT depend on hidden state fr
 
 SK-7: A skill MUST be atomic: it does one thing at the scope its `purpose` states. A declaration whose purpose requires "and" between two independent outcomes is not atomic.
 
+## 3a. Supply-chain lineage
+
+SK-12: A skill declaration identifies its maintainer or source, its behaviour-affecting dependencies, and its own immutable version. A skill update is a new version; when an update changes tool access, data access or the behaviour contract, it triggers policy and conformance review before an AOP may invoke it. A skill does not acquire authority through tool access (SK-3 governs at all times).
+
 ## 4. Invocation semantics
 
 SK-8: A skill is invoked only by an executor acting under an AOP whose Capabilities dimension enumerates it (NM-CAP-1).
